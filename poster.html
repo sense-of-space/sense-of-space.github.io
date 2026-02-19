@@ -39,13 +39,55 @@
     
     .header {
       grid-column: 1 / -1;
+      position: relative;
+      width: 100%;
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      padding-bottom: 20px;
+      padding: 40px 20px;
       border-bottom: 2px solid rgba(126,181,213,0.3);
+      overflow: hidden;
+    }
+    .teaser-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    .teaser-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.75) blur(0.5px);
+    }
+    .teaser-image::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, 
+        rgba(8,6,5,0.65) 0%, 
+        rgba(8,6,5,0.55) 30%,
+        rgba(8,6,5,0.45) 60%,
+        rgba(24,18,15,0.75) 100%);
+      z-index: 1;
+    }
+    .header h1,
+    .header .subtitle,
+    .header .meta {
+      position: relative;
+      z-index: 2;
     }
     
     .header h1 {
-      font-size: 2.8rem;
+      font-size: 3.2rem;
       font-weight: 800;
       letter-spacing: -0.03em;
       margin-bottom: 8px;
@@ -56,13 +98,13 @@
     }
     
     .header .subtitle {
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       color: rgba(234,240,255,0.85);
       margin-bottom: 12px;
     }
     
     .header .meta {
-      font-size: 0.95rem;
+      font-size: 1.1rem;
       color: rgba(198,178,161,0.9);
       font-weight: 600;
     }
@@ -88,7 +130,7 @@
     }
     
     .section h2 {
-      font-size: 1.4rem;
+      font-size: 1.6rem;
       font-weight: 700;
       margin-bottom: 12px;
       color: #7eb5d5;
@@ -97,7 +139,7 @@
     }
     
     .section p {
-      font-size: 0.85rem;
+      font-size: 1rem;
       line-height: 1.5;
       color: rgba(234,240,255,0.88);
       margin-bottom: 8px;
@@ -131,8 +173,8 @@
     }
     
     .speaker-avatar {
-      width: 80px;
-      height: 80px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 6px;
@@ -159,7 +201,7 @@
     }
     
     .dates-list li {
-      font-size: 0.8rem;
+      font-size: 0.95rem;
       padding: 6px 0;
       border-bottom: 1px solid rgba(255,255,255,0.08);
       display: flex;
@@ -212,14 +254,14 @@
     }
     
     .footer-section h3 {
-      font-size: 0.9rem;
+      font-size: 1.05rem;
       font-weight: 700;
       color: #d6a15f;
       margin-bottom: 8px;
     }
     
     .footer-section p {
-      font-size: 0.75rem;
+      font-size: 0.9rem;
       color: rgba(234,240,255,0.85);
       line-height: 1.4;
     }
@@ -246,7 +288,7 @@
     }
     
     .sponsor-logo {
-      height: 60px;
+      height: 80px;
       width: auto;
       opacity: 1;
       filter: brightness(1.1);
@@ -254,56 +296,264 @@
     
     @media print {
       @page {
-        size: A4 landscape;
-        margin: 10mm;
+        size: auto;
+        margin: 0;
       }
-      body {
+      * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        color-adjust: exact;
+        page-break-inside: avoid;
+      }
+      .poster,
+      .left-column,
+      .right-column,
+      .header,
+      .footer,
+      .section {
+        page-break-inside: avoid;
+        page-break-after: avoid;
+        page-break-before: avoid;
+      }
+      html, body {
         padding: 0;
         margin: 0;
-        background: white;
+        width: 100%;
+        height: auto;
+        overflow: visible;
+        box-sizing: border-box;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        background: linear-gradient(135deg, #080605 0%, #18120f 100%);
       }
       .poster {
         border-radius: 0;
         max-width: 100%;
-        padding: 15px;
-        gap: 15px;
-        min-height: auto;
-        height: auto;
+        width: 100%;
+        min-height: 100vh;
+        height: 100vh;
+        padding: 6px 10px;
+        gap: 3px;
+        margin: 0;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        box-sizing: border-box;
+        align-content: start;
+        overflow: hidden;
       }
-      .section {
-        padding: 12px;
-        page-break-inside: avoid;
+      .header {
+        grid-column: 1;
+        position: relative;
+        width: 100%;
+        min-height: 180px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px 10px;
+        margin-bottom: 2px;
+        overflow: hidden;
+      }
+      .teaser-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+      }
+      .teaser-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.75) blur(0.3px);
+      }
+      .teaser-image::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom, 
+          rgba(8,6,5,0.65) 0%, 
+          rgba(8,6,5,0.55) 30%,
+          rgba(8,6,5,0.45) 60%,
+          rgba(24,18,15,0.75) 100%);
+        z-index: 1;
+      }
+      .header h1,
+      .header .subtitle,
+      .header .meta {
+        position: relative;
+        z-index: 2;
       }
       .header h1 {
         font-size: 2.2rem;
+        margin-bottom: 2px;
+        text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+        filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
       }
       .header .subtitle {
         font-size: 1rem;
+        margin-bottom: 2px;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.6);
       }
       .header .meta {
         font-size: 0.85rem;
+        line-height: 1.2;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+      }
+      .left-column,
+      .right-column {
+        display: contents;
+      }
+      .section {
+        padding: 8px;
+        margin-bottom: 6px;
+        page-break-inside: avoid;
+        overflow: hidden;
+        box-sizing: border-box;
       }
       .section h2 {
-        font-size: 1.2rem;
+        font-size: 1rem;
+        margin-bottom: 6px;
+        padding-bottom: 3px;
       }
       .section p {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
+        line-height: 1.4;
+        margin-bottom: 4px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      }
+      .speakers-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+        margin-top: 6px;
       }
       .speaker-avatar {
-        width: 60px;
-        height: 60px;
+        width: 85px;
+        height: 85px;
+        margin-bottom: 3px;
       }
       .speaker-item {
-        padding: 6px;
+        padding: 4px;
       }
       .speaker-item .name {
-        font-size: 0.65rem;
+        font-size: 0.85rem;
+        margin-bottom: 2px;
       }
       .speaker-item .affiliation {
-        font-size: 0.55rem;
+        font-size: 0.75rem;
+        line-height: 1.2;
+      }
+      .dates-list {
+        margin-top: 6px;
+      }
+      .dates-list li {
+        font-size: 0.75rem;
+        padding: 3px 0;
+      }
+      .topics-list {
+        margin-top: 6px;
+      }
+      .topics-list li {
+        font-size: 0.7rem;
+        padding: 2px 0 2px 14px;
+        line-height: 1.4;
+      }
+      .footer {
+        grid-column: 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        padding-top: 8px;
+        margin-top: 8px;
+      }
+      .footer-section {
+        padding: 8px;
+      }
+      .footer-section h3 {
+        font-size: 0.95rem;
+        margin-bottom: 4px;
+      }
+      .footer-section p {
+        font-size: 0.85rem;
+        line-height: 1.3;
+      }
+      .sponsors {
+        gap: 12px;
+        margin-top: 6px;
+        padding: 6px;
       }
       .sponsor-logo {
-        height: 45px;
+        height: 40px;
+      }
+      .footer-section p:last-child {
+        font-size: 0.75rem;
+        margin-top: 6px;
+      }
+      .section[style*="grid-column"] {
+        grid-column: 1;
+        margin-top: 6px;
+        padding-top: 8px;
+      }
+      /* Awards & Support section - make larger */
+      .section div[style*="Awards & Support"],
+      .section div[style*="background: linear-gradient"] p {
+        font-size: 0.95rem !important;
+      }
+      .section div[style*="background: linear-gradient"] p[style*="font-size: 0.85rem"] {
+        font-size: 1.1rem !important;
+        font-weight: 700 !important;
+      }
+      /* Override inline styles for print */
+      .section p[style],
+      .section div[style] p,
+      .section div[style] {
+        font-size: 0.85rem !important;
+        margin-top: 1px !important;
+        margin-bottom: 1px !important;
+        padding: 2px !important;
+        line-height: 1.3 !important;
+      }
+      .section div[style] p[style*="font-size: 0.8rem"],
+      .section p[style*="font-size: 0.8rem"] {
+        font-size: 0.9rem !important;
+      }
+      .section div[style] p[style*="font-size: 0.75rem"],
+      .section p[style*="font-size: 0.75rem"] {
+        font-size: 0.85rem !important;
+      }
+      .section div[style] p[style*="font-size: 0.7rem"],
+      .section p[style*="font-size: 0.7rem"] {
+        font-size: 0.8rem !important;
+      }
+      .section div[style] p[style*="font-size: 0.85rem"],
+      .section p[style*="font-size: 0.85rem"] {
+        font-size: 1rem !important;
+      }
+      .section[style*="grid-column"] p {
+        font-size: 0.8rem !important;
+        line-height: 1.3 !important;
+      }
+      .header .meta[style] {
+        font-size: 0.8rem !important;
+        margin-top: 1px !important;
+      }
+      .footer-section h3[style] {
+        font-size: 0.95rem !important;
+        margin-bottom: 3px !important;
+      }
+      .footer-section p[style*="font-size: 0.8rem"] {
+        font-size: 0.85rem !important;
+        margin-top: 3px !important;
       }
     }
   </style>
@@ -311,6 +561,9 @@
 <body>
   <div class="poster">
     <div class="header">
+      <div class="teaser-image">
+        <img src="assets/teaser.webp" alt="Workshop teaser artwork" />
+      </div>
       <h1>Sense of Space</h1>
       <p class="subtitle">Multi-Sensory Modeling for Embodied Intelligence</p>
       <p class="meta">CVPR 2026 Workshop • June 03, 2026 • Denver, CO, USA</p>
@@ -322,10 +575,8 @@
         <h2>Overview</h2>
         <p>Embodied intelligence in humans and robots relies on the integration of multiple sensory modalities — vision, touch, sound, proprioception, bio-signals, and beyond — into coherent spatial understanding and actionable policies. While recent advances in AI have significantly improved language and visual perception, progress in <strong>real-world embodied intelligence</strong> remains fundamentally constrained by our ability to model, align, and learn from <strong>multi-sensory physical interactions</strong>.</p>
         <p>Sense of Space brings together researchers working across sensing hardware, data acquisition, representation learning, and embodied applications. To provide focus within this broad and critical space, the 2026 edition centers on <strong>emergent special sensory modalities</strong>, and <strong>hand-object dexterity manipulation</strong>.</p>
-        <p>The workshop emphasizes challenges including novel sensing modalities, data-driven sensor design, large scale synchronized multi-sensory data collection, cross-modal spatial–temporal alignment, robustness to missing or noisy modalities, and generalizable representations for real-world manipulation in robotics & XR.</p>      </div>
-
       <div class="section">
-        <h2>Topics of Interest</h2>
+        <h2>Call for Papers</h2>
         <ul class="topics-list">
           <li><strong>Sensing & Systems:</strong> Novel modalities, sensor-algorithm co-design, multi-sensory systems</li>
           <li><strong>Data & Benchmarks:</strong> Large-scale datasets, cross-modal annotation, open benchmarks</li>
@@ -342,6 +593,13 @@
           <li><span>Camera-ready deadline</span><span class="date">April 08, 2026 (AoE)</span></li>
           <li><span>Workshop date</span><span class="date">June 03, 2026</span></li>
         </ul>
+        <div style="margin-top: 12px; padding: 10px; background: linear-gradient(135deg, rgba(126,181,213,0.15), rgba(214,161,95,0.15)); border: 1px solid rgba(126,181,213,0.3); border-radius: 8px;">
+          <p style="margin: 0 0 6px 0; font-weight: 700; color: #d6a15f; font-size: 0.85rem;">💰 Awards & Support</p>
+          <p style="margin: 0; font-size: 0.75rem; line-height: 1.5;">
+            <strong style="color: #7eb5d5;">Best Paper Awards</strong> with monetary prizes<br>
+            <strong style="color: #7eb5d5;">Travel grants</strong> available to apply for in-person presenters
+          </p>
+        </div>
       </div>
     </div>
 
@@ -392,32 +650,6 @@
         </div>
       </div>
 
-      <div class="section">
-        <h2>Submission & Publication</h2>
-        <p style="font-size: 0.8rem; margin-bottom: 12px;"><strong>Two submission tracks:</strong></p>
-        
-        <div style="margin-bottom: 10px; padding: 8px; background: rgba(126,181,213,0.1); border-radius: 6px;">
-          <p style="margin: 0; font-size: 0.75rem; font-weight: 600; color: #7eb5d5;">1. Proceedings (Archival)</p>
-          <p style="margin: 4px 0 0 0; font-size: 0.7rem;">8 pages, 3 reviews • Published in proceedings</p>
-        </div>
-        
-        <div style="margin-bottom: 12px; padding: 8px; background: rgba(214,161,95,0.1); border-radius: 6px;">
-          <p style="margin: 0; font-size: 0.75rem; font-weight: 600; color: #d6a15f;">2. Non-Proceedings</p>
-          <p style="margin: 4px 0 0 0; font-size: 0.7rem;">8 pages, 2 reviews • Website listing only</p>
-        </div>
-        
-        <p style="margin-top: 8px; font-size: 0.75rem;">• 10 selected papers receive 5-minute spotlight talks</p>
-        <p style="margin-top: 6px; font-size: 0.75rem;">• <strong>All accepted submissions</strong> eligible for presentation and best paper award</p>
-        
-        <div style="margin-top: 12px; padding: 10px; background: linear-gradient(135deg, rgba(126,181,213,0.15), rgba(214,161,95,0.15)); border: 1px solid rgba(126,181,213,0.3); border-radius: 8px;">
-          <p style="margin: 0 0 6px 0; font-weight: 700; color: #d6a15f; font-size: 0.85rem;">💰 Awards & Support</p>
-          <p style="margin: 0; font-size: 0.75rem; line-height: 1.5;">
-            <strong style="color: #7eb5d5;">Best Paper Awards</strong> with monetary prizes<br>
-            <strong style="color: #7eb5d5;">Travel grants</strong> available to apply for in-person presenters
-          </p>
-        </div>
-        <p style="margin-top: 12px; font-size: 0.75rem;"><strong>Submission:</strong> <a href="https://openreview.net/group?id=thecvf.com/CVPR/2026/Workshop/SoS" style="color: #7eb5d5;">OpenReview</a></p>
-      </div>
 
     </div>
 
