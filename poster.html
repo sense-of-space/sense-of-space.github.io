@@ -7,677 +7,618 @@
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    @page { size: A4 landscape; margin: 0; }
-    
+
+    @page {
+      size: 24in 36in portrait;
+      margin: 0.4in;
+    }
+
     body {
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
-      background: linear-gradient(135deg, #080605 0%, #18120f 100%);
-      color: #f2e9df;
-      padding: 20px;
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      background: #0a0c14;
+      color: #eaf0ff;
       min-height: 100vh;
-      overflow-x: hidden;
-      overflow-y: auto;
+      padding: 24px;
     }
-    
+
     .poster {
-      width: 100%;
-      max-width: 1200px;
-      min-height: calc(100vh - 40px);
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto 1fr auto auto;
-      gap: 20px;
-      padding: 30px;
-      background: rgba(255,255,255,0.03);
-      border-radius: 12px;
-      box-sizing: border-box;
-    }
-    
-    .header {
-      grid-column: 1 / -1;
       position: relative;
-      width: 100%;
-      min-height: 500px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 40px 20px;
-      border-bottom: 2px solid rgba(126,181,213,0.3);
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 36px 40px 32px;
+      background:
+        linear-gradient(180deg, rgba(10,12,20,0.92) 0%, rgba(10,12,20,0.97) 100%),
+        url("assets/teaser.webp") center / cover no-repeat;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
       overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.55);
     }
-    .teaser-image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-    }
-    .teaser-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(0.75) blur(0.5px);
-    }
-    .teaser-image::after {
+
+    .poster::before {
       content: "";
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(to bottom, 
-        rgba(8,6,5,0.65) 0%, 
-        rgba(8,6,5,0.55) 30%,
-        rgba(8,6,5,0.45) 60%,
-        rgba(24,18,15,0.75) 100%);
-      z-index: 1;
+      inset: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(126,181,213,0.12), transparent 55%);
+      pointer-events: none;
     }
-    .header h1,
-    .header .subtitle,
-    .header .meta {
-      position: relative;
-      z-index: 2;
+
+    .poster > * { position: relative; z-index: 1; }
+
+    .poster-header {
+      text-align: center;
+      padding-bottom: 22px;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
     }
-    
-    .header h1 {
-      font-size: 3.2rem;
+
+    .workshop-label {
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #d6a15f;
+      margin-bottom: 10px;
+    }
+
+    .poster-website {
+      display: inline-block;
+      margin-bottom: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #7eb5d5;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+
+    .poster-website:hover {
+      color: #a8d4ef;
+    }
+
+    .poster-header h1 {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      line-height: 1.08;
       font-weight: 800;
       letter-spacing: -0.03em;
       margin-bottom: 8px;
-      background: linear-gradient(135deg, #7eb5d5, #d6a15f);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
     }
-    
-    .header .subtitle {
-      font-size: 1.4rem;
-      color: rgba(234,240,255,0.85);
-      margin-bottom: 12px;
+
+    .tagline {
+      font-size: 1.05rem;
+      color: rgba(234,240,255,0.82);
+      margin-bottom: 14px;
     }
-    
-    .header .meta {
-      font-size: 1.1rem;
-      color: rgba(198,178,161,0.9);
-      font-weight: 600;
-    }
-    
-    .left-column {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    
-    .right-column {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    
-    .section {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 12px;
-      padding: 18px;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.52);
-    }
-    
-    .section h2 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin-bottom: 12px;
+
+    .tagline em {
+      font-style: normal;
       color: #7eb5d5;
-      border-bottom: 1px solid rgba(126,181,213,0.3);
-      padding-bottom: 6px;
     }
-    
-    .section p {
-      font-size: 1rem;
-      line-height: 1.5;
-      color: rgba(234,240,255,0.88);
-      margin-bottom: 8px;
-    }
-    
-    .section p:last-child {
-      margin-bottom: 0;
-    }
-    
-    .section strong {
-      color: #d6a15f;
-      font-weight: 600;
-    }
-    
-    .speakers-grid {
+
+    .meta-row {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-top: 10px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      max-width: 760px;
+      margin: 0 auto;
     }
-    
-    .speaker-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+
+    .meta-card {
+      padding: 12px 10px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
       text-align: center;
-      font-size: 0.7rem;
-      padding: 8px;
-      background: rgba(255,255,255,0.04);
-      border-radius: 8px;
     }
-    
-    .speaker-avatar {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 6px;
-      border: 2px solid rgba(126,181,213,0.3);
-    }
-    
-    .speaker-item .name {
-      font-weight: 600;
-      color: #f2e9df;
-      font-size: 0.7rem;
-      margin-bottom: 2px;
-    }
-    
-    .speaker-item .affiliation {
-      font-size: 0.6rem;
-      color: rgba(198,178,161,0.8);
-      line-height: 1.2;
-    }
-    
-    .dates-list {
-      list-style: none;
-      padding: 0;
-      margin-top: 10px;
-    }
-    
-    .dates-list li {
-      font-size: 0.95rem;
-      padding: 6px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      display: flex;
-      justify-content: space-between;
-    }
-    
-    .dates-list li:last-child {
-      border-bottom: none;
-    }
-    
-    .dates-list .date {
-      font-weight: 600;
+
+    .meta-card .label {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       color: #7eb5d5;
+      margin-bottom: 4px;
     }
-    
-    .topics-list {
+
+    .meta-card .value {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: rgba(234,240,255,0.98);
+      line-height: 1.25;
+    }
+
+    .theme-box {
+      margin: 22px auto;
+      max-width: 760px;
+      padding: 18px 22px;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .theme-box ul {
       list-style: none;
-      padding: 0;
-      margin-top: 10px;
+      display: grid;
+      gap: 10px;
     }
-    
-    .topics-list li {
-      font-size: 0.75rem;
-      padding: 4px 0 4px 16px;
+
+    .theme-box li {
+      font-size: 0.98rem;
+      line-height: 1.45;
+      padding-left: 22px;
       position: relative;
-      color: rgba(234,240,255,0.85);
+      color: rgba(234,240,255,0.92);
     }
-    
-    .topics-list li::before {
-      content: "•";
+
+    .theme-box li::before {
+      content: "→";
       position: absolute;
       left: 0;
       color: #7eb5d5;
-      font-weight: bold;
-    }
-    
-    .footer {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      padding-top: 20px;
-      border-top: 2px solid rgba(126,181,213,0.3);
-    }
-    
-    .footer-section {
-      background: rgba(255,255,255,0.04);
-      border-radius: 8px;
-      padding: 12px;
-    }
-    
-    .footer-section h3 {
-      font-size: 1.05rem;
       font-weight: 700;
-      color: #d6a15f;
+    }
+
+    .section-title {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin: 24px 0 14px;
+      color: rgba(234,240,255,0.95);
+    }
+
+    .speaker-rows {
+      display: grid;
+      gap: 14px;
+    }
+
+    .speaker-row {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .speaker-row.second {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      max-width: calc(100% * 5 / 6);
+      margin: 0 auto;
+    }
+
+    .speaker-card {
+      text-align: center;
+    }
+
+    .speaker-card img {
+      width: 80px;
+      height: 80px;
+      border-radius: 999px;
+      object-fit: cover;
+      object-position: center 22%;
+      border: 2px solid rgba(255,255,255,0.16);
       margin-bottom: 8px;
     }
-    
-    .footer-section p {
-      font-size: 0.9rem;
-      color: rgba(234,240,255,0.85);
-      line-height: 1.4;
+
+    .speaker-card .name {
+      font-size: 0.78rem;
+      font-weight: 700;
+      line-height: 1.25;
+      color: rgba(234,240,255,0.95);
     }
-    
-    .footer-section a {
+
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: 112px 1fr;
+      gap: 0;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .schedule-head {
+      grid-column: 1 / -1;
+      padding: 10px 14px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(234,240,255,0.78);
+      background: rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .slot {
+      display: contents;
+    }
+
+    .slot-time,
+    .slot-body {
+      padding: 9px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.8rem;
+      line-height: 1.35;
+    }
+
+    .slot-time {
+      font-weight: 900;
+      font-size: 0.82rem;
+      color: rgba(234,240,255,0.98);
+      white-space: nowrap;
+      background: rgba(126,181,213,0.1);
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .slot-body {
+      color: rgba(234,240,255,0.9);
+    }
+
+    .slot-body.muted {
+      color: rgba(234,240,255,0.65);
+    }
+
+    .keynote-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .slot-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      object-fit: cover;
+      object-position: center 22%;
+      border: 2px solid rgba(255,255,255,0.16);
+      flex-shrink: 0;
+    }
+
+    .keynote-line {
+      display: inline-flex;
+      align-items: baseline;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+      min-width: 0;
+    }
+
+    .keynote-line strong {
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .slot-topic {
+      color: rgba(234,240,255,0.72);
+      font-weight: 500;
+    }
+
+    .slot-topic::before {
+      content: " — ";
+      color: rgba(234,240,255,0.45);
+    }
+
+    .panel-slot .slot-body {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 12px;
+    }
+
+    .panel-avatars {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .panel-avatars img {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      object-fit: cover;
+      object-position: center 22%;
+      border: 2px solid rgba(255,255,255,0.16);
+    }
+
+    .poster-footer {
+      margin-top: 22px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 0.82rem;
+      color: rgba(234,240,255,0.65);
+    }
+
+    .poster-footer a {
       color: #7eb5d5;
       text-decoration: none;
     }
-    
-    .footer-section a:hover {
-      text-decoration: underline;
-    }
-    
-    .sponsors {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-      justify-content: center;
-      margin-top: 12px;
-      padding: 15px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 8px;
-      border: 1px solid rgba(126,181,213,0.2);
-    }
-    
-    .sponsor-logo {
-      height: 80px;
-      width: auto;
-      opacity: 1;
-      filter: brightness(1.1);
-    }
-    
+
     @media print {
-      @page {
-        size: auto;
-        margin: 0;
+      body {
+        padding: 0;
+        background: #0a0c14;
+      }
+      .poster {
+        max-width: none;
+        width: 100%;
+        min-height: 100vh;
+        border-radius: 0;
+        box-shadow: none;
+        page-break-inside: avoid;
       }
       * {
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
-        color-adjust: exact;
-        page-break-inside: avoid;
       }
-      .poster,
-      .left-column,
-      .right-column,
-      .header,
-      .footer,
-      .section {
-        page-break-inside: avoid;
-        page-break-after: avoid;
-        page-break-before: avoid;
+    }
+
+    @media (max-width: 720px) {
+      body { padding: 10px; }
+      .poster { padding: 24px 18px; }
+      .speaker-row,
+      .speaker-row.second {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        max-width: none;
       }
-      html, body {
-        padding: 0;
-        margin: 0;
-        width: 100%;
-        height: auto;
-        overflow: visible;
-        box-sizing: border-box;
+      .schedule-grid {
+        grid-template-columns: 96px 1fr;
       }
-      * {
-        box-sizing: border-box;
-      }
-      body {
-        background: linear-gradient(135deg, #080605 0%, #18120f 100%);
-      }
-      .poster {
-        border-radius: 0;
-        max-width: 100%;
-        width: 100%;
-        min-height: 100vh;
-        height: 100vh;
-        padding: 6px 10px;
-        gap: 3px;
-        margin: 0;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
-        box-sizing: border-box;
-        align-content: start;
-        overflow: hidden;
-      }
-      .header {
-        grid-column: 1;
-        position: relative;
-        width: 100%;
-        min-height: 180px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 20px 10px;
-        margin-bottom: 2px;
-        overflow: hidden;
-      }
-      .teaser-image {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-      }
-      .teaser-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        filter: brightness(0.75) blur(0.3px);
-      }
-      .teaser-image::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(to bottom, 
-          rgba(8,6,5,0.65) 0%, 
-          rgba(8,6,5,0.55) 30%,
-          rgba(8,6,5,0.45) 60%,
-          rgba(24,18,15,0.75) 100%);
-        z-index: 1;
-      }
-      .header h1,
-      .header .subtitle,
-      .header .meta {
-        position: relative;
-        z-index: 2;
-      }
-      .header h1 {
-        font-size: 2.2rem;
-        margin-bottom: 2px;
-        text-shadow: 0 1px 4px rgba(0,0,0,0.5);
-        filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
-      }
-      .header .subtitle {
-        font-size: 1rem;
-        margin-bottom: 2px;
-        text-shadow: 0 1px 3px rgba(0,0,0,0.6);
-      }
-      .header .meta {
-        font-size: 0.85rem;
-        line-height: 1.2;
-        text-shadow: 0 1px 3px rgba(0,0,0,0.6);
-      }
-      .left-column,
-      .right-column {
-        display: contents;
-      }
-      .section {
-        padding: 8px;
-        margin-bottom: 6px;
-        page-break-inside: avoid;
-        overflow: hidden;
-        box-sizing: border-box;
-      }
-      .section h2 {
-        font-size: 1rem;
-        margin-bottom: 6px;
-        padding-bottom: 3px;
-      }
-      .section p {
-        font-size: 0.7rem;
-        line-height: 1.4;
-        margin-bottom: 4px;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-      }
-      .speakers-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 6px;
-        margin-top: 6px;
-      }
-      .speaker-avatar {
-        width: 85px;
-        height: 85px;
-        margin-bottom: 3px;
-      }
-      .speaker-item {
-        padding: 4px;
-      }
-      .speaker-item .name {
-        font-size: 0.85rem;
-        margin-bottom: 2px;
-      }
-      .speaker-item .affiliation {
-        font-size: 0.75rem;
-        line-height: 1.2;
-      }
-      .dates-list {
-        margin-top: 6px;
-      }
-      .dates-list li {
-        font-size: 0.75rem;
-        padding: 3px 0;
-      }
-      .topics-list {
-        margin-top: 6px;
-      }
-      .topics-list li {
-        font-size: 0.7rem;
-        padding: 2px 0 2px 14px;
-        line-height: 1.4;
-      }
-      .footer {
-        grid-column: 1;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-        padding-top: 8px;
-        margin-top: 8px;
-      }
-      .footer-section {
-        padding: 8px;
-      }
-      .footer-section h3 {
-        font-size: 0.95rem;
-        margin-bottom: 4px;
-      }
-      .footer-section p {
-        font-size: 0.85rem;
-        line-height: 1.3;
-      }
-      .sponsors {
-        gap: 12px;
-        margin-top: 6px;
-        padding: 6px;
-      }
-      .sponsor-logo {
-        height: 40px;
-      }
-      .footer-section p:last-child {
-        font-size: 0.75rem;
-        margin-top: 6px;
-      }
-      .section[style*="grid-column"] {
-        grid-column: 1;
-        margin-top: 6px;
-        padding-top: 8px;
-      }
-      /* Awards & Support section - make larger */
-      .section div[style*="Awards & Support"],
-      .section div[style*="background: linear-gradient"] p {
-        font-size: 0.95rem !important;
-      }
-      .section div[style*="background: linear-gradient"] p[style*="font-size: 0.85rem"] {
-        font-size: 1.1rem !important;
-        font-weight: 700 !important;
-      }
-      /* Override inline styles for print */
-      .section p[style],
-      .section div[style] p,
-      .section div[style] {
-        font-size: 0.85rem !important;
-        margin-top: 1px !important;
-        margin-bottom: 1px !important;
-        padding: 2px !important;
-        line-height: 1.3 !important;
-      }
-      .section div[style] p[style*="font-size: 0.8rem"],
-      .section p[style*="font-size: 0.8rem"] {
-        font-size: 0.9rem !important;
-      }
-      .section div[style] p[style*="font-size: 0.75rem"],
-      .section p[style*="font-size: 0.75rem"] {
-        font-size: 0.85rem !important;
-      }
-      .section div[style] p[style*="font-size: 0.7rem"],
-      .section p[style*="font-size: 0.7rem"] {
-        font-size: 0.8rem !important;
-      }
-      .section div[style] p[style*="font-size: 0.85rem"],
-      .section p[style*="font-size: 0.85rem"] {
-        font-size: 1rem !important;
-      }
-      .section[style*="grid-column"] p {
-        font-size: 0.8rem !important;
-        line-height: 1.3 !important;
-      }
-      .header .meta[style] {
-        font-size: 0.8rem !important;
-        margin-top: 1px !important;
-      }
-      .footer-section h3[style] {
-        font-size: 0.95rem !important;
-        margin-bottom: 3px !important;
-      }
-      .footer-section p[style*="font-size: 0.8rem"] {
-        font-size: 0.85rem !important;
-        margin-top: 3px !important;
+      .meta-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
   </style>
 </head>
 <body>
-  <div class="poster">
-    <div class="header">
-      <div class="teaser-image">
-        <img src="assets/teaser.webp" alt="Workshop teaser artwork" />
-      </div>
+  <article class="poster">
+    <header class="poster-header">
+      <a class="poster-website" href="https://sense-of-space.github.io">sense-of-space.github.io</a>
+      <p class="workshop-label">CVPR 2026 Workshop • 1st Sense of Space (SoS)</p>
       <h1>Sense of Space</h1>
-      <p class="subtitle">Multi-Sensory Modeling for Embodied Intelligence</p>
-      <p class="meta">CVPR 2026 Workshop • June 03, 2026 • Denver, CO, USA</p>
-      <p class="meta" style="margin-top: 4px;">In conjunction with IEEE/CVF Conference on Computer Vision and Pattern Recognition</p>
+      <p class="tagline"><em>Multi-Sensory Modeling</em> for Embodied Intelligence</p>
+      <div class="meta-row">
+        <div class="meta-card">
+          <div class="label">Date</div>
+          <div class="value">June 3rd</div>
+        </div>
+        <div class="meta-card">
+          <div class="label">Time</div>
+          <div class="value">8:30 AM – 5:00 PM</div>
+        </div>
+        <div class="meta-card">
+          <div class="label">Room</div>
+          <div class="value">Mile High 2C</div>
+        </div>
+        <div class="meta-card">
+          <div class="label">Posters</div>
+          <div class="value">Hall A #275–282</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="theme-box">
+      <ul>
+        <li>Emergent special sensory modalities — vision, touch, sound, proprioception, and beyond</li>
+        <li>Dexterous hand-object manipulation and multi-sensory physical interaction</li>
+        <li>Sensor design, synchronized data collection, and cross-modal representation learning</li>
+        <li>Embodied intelligence for robotics, XR, and real-world deployment</li>
+      </ul>
     </div>
 
-    <div class="left-column">
-      <div class="section">
-        <h2>Overview</h2>
-        <p>Embodied intelligence in humans and robots relies on the integration of multiple sensory modalities — vision, touch, sound, proprioception, bio-signals, and beyond — into coherent spatial understanding and actionable policies. While recent advances in AI have significantly improved language and visual perception, progress in <strong>real-world embodied intelligence</strong> remains fundamentally constrained by our ability to model, align, and learn from <strong>multi-sensory physical interactions</strong>.</p>
-        <p>Sense of Space brings together researchers working across sensing hardware, data acquisition, representation learning, and embodied applications. To provide focus within this broad and critical space, the 2026 edition centers on <strong>emergent special sensory modalities</strong>, and <strong>hand-object dexterity manipulation</strong>.</p>
-      <div class="section">
-        <h2>Call for Papers</h2>
-        <ul class="topics-list">
-          <li><strong>Sensing & Systems:</strong> Novel modalities, sensor-algorithm co-design, multi-sensory systems</li>
-          <li><strong>Data & Benchmarks:</strong> Large-scale datasets, cross-modal annotation, open benchmarks</li>
-          <li><strong>Models & Learning:</strong> Cross-modal representation learning, generative models, robustness</li>
-          <li><strong>Tasks & Applications:</strong> Hand-object understanding, skill transfer, embodied agents</li>
-        </ul>
+    <h2 class="section-title">Keynote Speakers / Panelists</h2>
+    <div class="speaker-rows">
+      <div class="speaker-row">
+        <div class="speaker-card">
+          <img src="assets/profile_speaker/nima.webp" alt="Nima Fazeli">
+          <div class="name">Nima Fazeli</div>
+        </div>
+        <div class="speaker-card">
+          <img src="assets/profile_speaker/mahi.png" alt="Mahi Shafiullah">
+          <div class="name">Mahi Shafiullah</div>
+        </div>
+        <div class="speaker-card">
+          <img src="assets/profile_speaker/marc.jpg" alt="Marc Pollefeys">
+          <div class="name">Marc Pollefeys</div>
+        </div>
+        <div class="speaker-card">
+          <img src="assets/profile_speaker/wojciech.jpg" alt="Wojciech Matusik">
+          <div class="name">Wojciech Matusik</div>
+        </div>
+        <div class="speaker-card">
+          <img src="assets/profile_speaker/homanga.webp" alt="Homanga Bharadhwaj">
+          <div class="name">Homanga Bharadhwaj</div>
+        </div>
+        <div class="speaker-card">
+          <img src="assets/profile_speaker/christian.jpg" alt="Christian Theobalt">
+          <div class="name">Christian Theobalt</div>
+        </div>
       </div>
-
-      <div class="section">
-        <h2>Important Dates</h2>
-        <ul class="dates-list">
-          <li><span>Paper submission deadline</span><span class="date">March 07, 2026 (AoE)</span></li>
-          <li><span>Notification of acceptance</span><span class="date">March 20, 2026 (AoE)</span></li>
-          <li><span>Camera-ready deadline</span><span class="date">April 08, 2026 (AoE)</span></li>
-          <li><span>Workshop date</span><span class="date">June 03, 2026</span></li>
-        </ul>
-        <div style="margin-top: 12px; padding: 10px; background: linear-gradient(135deg, rgba(126,181,213,0.15), rgba(214,161,95,0.15)); border: 1px solid rgba(126,181,213,0.3); border-radius: 8px;">
-          <p style="margin: 0 0 6px 0; font-weight: 700; color: #d6a15f; font-size: 0.85rem;">💰 Awards & Support</p>
-          <p style="margin: 0; font-size: 0.75rem; line-height: 1.5;">
-            <strong style="color: #7eb5d5;">Best Paper Awards</strong> with monetary prizes<br>
-            <strong style="color: #7eb5d5;">Travel grants</strong> available to apply for in-person presenters
-          </p>
+      <div class="speaker-row second">
+        <div class="speaker-card">
+          <img src="assets/profile_speaker/boyi.jpg" alt="Boyi Li">
+          <div class="name">Boyi Li</div>
+        </div>
+        <div class="speaker-card">
+          <img src="assets/profile_speaker/sha.jpg" alt="Sha Yi">
+          <div class="name">Sha Yi</div>
+        </div>
+        <div class="speaker-card">
+          <img src="assets/profile_speaker/lingjie.jpg" alt="Lingjie Liu">
+          <div class="name">Lingjie Liu</div>
+        </div>
+        <div class="speaker-card">
+          <img src="assets/profile_speaker/paul.jpg" alt="Paul Liang">
+          <div class="name">Paul Liang</div>
+        </div>
+        <div class="speaker-card">
+          <img src="assets/profile_speaker/ismini.jpg" alt="Ismini Lourentzou">
+          <div class="name">Ismini Lourentzou</div>
         </div>
       </div>
     </div>
 
-    <div class="right-column">
-      <div class="section">
-        <h2>Invited Speakers</h2>
-        <div class="speakers-grid">
-          <div class="speaker-item">
-            <img src="assets/profile_speaker/paul.jpg" alt="Paul Liang" class="speaker-avatar">
-            <div class="name">Paul Liang</div>
-            <div class="affiliation">MIT Media Lab / MIT EECS</div>
-          </div>
-          <div class="speaker-item">
-            <img src="assets/profile_speaker/lingjie.jpg" alt="Lingjie Liu" class="speaker-avatar">
-            <div class="name">Lingjie Liu</div>
-            <div class="affiliation">University of Pennsylvania</div>
-          </div>
-          <div class="speaker-item">
-            <img src="assets/profile_speaker/jitendra.jpg" alt="Jitendra Malik" class="speaker-avatar">
-            <div class="name">Jitendra Malik</div>
-            <div class="affiliation">UC Berkeley / Amazon FAR</div>
-          </div>
-          <div class="speaker-item">
-            <img src="assets/profile_speaker/wojciech.jpg" alt="Wojciech Matusik" class="speaker-avatar">
-            <div class="name">Wojciech Matusik</div>
-            <div class="affiliation">MIT CSAIL</div>
-          </div>
-          <div class="speaker-item">
-            <img src="assets/profile_speaker/lerrel.png" alt="Lerrel Pinto" class="speaker-avatar">
-            <div class="name">Lerrel Pinto</div>
-            <div class="affiliation">NYU</div>
-          </div>
-          <div class="speaker-item">
-            <img src="assets/profile_speaker/marc.jpg" alt="Marc Pollefeys" class="speaker-avatar">
-            <div class="name">Marc Pollefeys</div>
-            <div class="affiliation">ETH Zürich / Microsoft</div>
-          </div>
-          <div class="speaker-item">
-            <img src="assets/profile_speaker/christian.jpg" alt="Christian Theobalt" class="speaker-avatar">
-            <div class="name">Christian Theobalt</div>
-            <div class="affiliation">Max Planck Institute</div>
-          </div>
-          <div class="speaker-item">
-            <img src="assets/profile_speaker/xiaolong.jpg" alt="Xiaolong Wang" class="speaker-avatar">
-            <div class="name">Xiaolong Wang</div>
-            <div class="affiliation">UC San Diego / ARI</div>
-          </div>
+    <h2 class="section-title">Schedule</h2>
+    <div class="schedule-grid">
+      <div class="schedule-head">Morning</div>
+
+      <div class="slot">
+        <div class="slot-time">08:30</div>
+        <div class="slot-body muted">Welcome</div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">08:40–09:10</div>
+        <div class="slot-body">
+          <span class="keynote-row">
+            <img class="slot-avatar" src="assets/profile_speaker/nima.webp" alt="Nima Fazeli">
+            <span class="keynote-line">
+              <strong>Keynote — Nima Fazeli</strong>
+              <span class="slot-topic">Tactile Intelligence: Learning to Perceive and Act through Touch</span>
+            </span>
+          </span>
         </div>
       </div>
-
-
-    </div>
-
-    <div class="section" style="grid-column: 1 / -1;">
-      <h2>Organizing Committee</h2>
-      <p style="font-size: 0.75rem; line-height: 1.6;">
-        Rao Fu, Li Guan, Kaichen Zhou, Kun He, Tomas Hodan, Ergys Ristani, Eric Yi, 
-        Jessica Yin, Qi Ye, Yichen Li, Yining Hong, Devin Murphy, Ray Song, Xueyan Zou, 
-        Yunzhu Li, Hao-Shu Fang, Ruoshi Liu, Yiyue Luo, Vatsal Mehta, Mengyu Wang, 
-        Wojciech Matusik
-      </p>
-    </div>
-
-    <div class="footer">
-      <div class="footer-section">
-        <h3>Contact</h3>
-        <p>SenseOfSpace_org@outlook.com</p>
-        <p style="margin-top: 6px;"><a href="index.html">Website</a> • <a href="cfp.html">Call for Papers</a></p>
-      </div>
-      <div class="footer-section">
-        <h3 style="font-size: 1rem; margin-bottom: 12px;">Sponsors</h3>
-        <div class="sponsors">
-          <img src="assets/sponsor/Meta-New-Logo.png" alt="Meta" class="sponsor-logo">
-          <img src="assets/sponsor/cyberbrain_new.png" alt="Cyberbrain" class="sponsor-logo">
+      <div class="slot">
+        <div class="slot-time">09:15–09:45</div>
+        <div class="slot-body">
+          <span class="keynote-row">
+            <img class="slot-avatar" src="assets/profile_speaker/mahi.png" alt="Mahi Shafiullah">
+            <span class="keynote-line">
+              <strong>Keynote — Mahi Shafiullah</strong>
+              <span class="slot-topic">Are robots slowing down robotics?</span>
+            </span>
+          </span>
         </div>
-        <p style="margin-top: 12px; font-size: 0.8rem; font-weight: 600; color: #d6a15f; text-align: center;">Supporting travel grants and Best Paper Awards</p>
+      </div>
+      <div class="slot">
+        <div class="slot-time">09:50–10:15</div>
+        <div class="slot-body muted">Oral spotlights (5×5 min)</div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">10:15–10:30</div>
+        <div class="slot-body muted">Coffee break</div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">10:30–11:05</div>
+        <div class="slot-body">
+          <span class="keynote-row">
+            <img class="slot-avatar" src="assets/profile_speaker/marc.jpg" alt="Marc Pollefeys">
+            <span class="keynote-line"><strong>Keynote — Marc Pollefeys</strong></span>
+          </span>
+        </div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">11:05–11:40</div>
+        <div class="slot-body">
+          <span class="keynote-row">
+            <img class="slot-avatar" src="assets/profile_speaker/wojciech.jpg" alt="Wojciech Matusik">
+            <span class="keynote-line"><strong>Keynote — Wojciech Matusik</strong></span>
+          </span>
+        </div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">11:40–13:00</div>
+        <div class="slot-body muted">Lunch + posters</div>
+      </div>
+
+      <div class="schedule-head">Afternoon</div>
+
+      <div class="slot">
+        <div class="slot-time">13:00</div>
+        <div class="slot-body muted">Welcome back</div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">13:05–13:35</div>
+        <div class="slot-body">
+          <span class="keynote-row">
+            <img class="slot-avatar" src="assets/profile_speaker/homanga.webp" alt="Homanga Bharadhwaj">
+            <span class="keynote-line">
+              <strong>Keynote — Homanga Bharadhwaj</strong>
+              <span class="slot-topic">Observational Learning for Manipulation via Visual Imitation of Humans</span>
+            </span>
+          </span>
+        </div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">13:35–14:05</div>
+        <div class="slot-body">
+          <span class="keynote-row">
+            <img class="slot-avatar" src="assets/profile_speaker/boyi.jpg" alt="Boyi Li">
+            <span class="keynote-line">
+              <strong>Keynote — Boyi Li</strong>
+              <span class="slot-topic">Learning Multimodal Robot Policies with Generative Signals</span>
+            </span>
+          </span>
+        </div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">14:05–14:35</div>
+        <div class="slot-body">
+          <span class="keynote-row">
+            <img class="slot-avatar" src="assets/profile_speaker/sha.jpg" alt="Sha Yi">
+            <span class="keynote-line">
+              <strong>Keynote — Sha Yi</strong>
+              <span class="slot-topic">When is touch necessary for robotics?</span>
+            </span>
+          </span>
+        </div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">14:35–15:00</div>
+        <div class="slot-body muted">Oral spotlights (5×5 min)</div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">15:00–15:15</div>
+        <div class="slot-body muted">Coffee break</div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">15:15–15:45</div>
+        <div class="slot-body">
+          <span class="keynote-row">
+            <img class="slot-avatar" src="assets/profile_speaker/lingjie.jpg" alt="Lingjie Liu">
+            <span class="keynote-line"><strong>Keynote — Lingjie Liu</strong></span>
+          </span>
+        </div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">15:45–16:15</div>
+        <div class="slot-body">
+          <span class="keynote-row">
+            <img class="slot-avatar" src="assets/profile_speaker/paul.jpg" alt="Paul Liang">
+            <span class="keynote-line">
+              <strong>Keynote — Paul Liang</strong>
+              <span class="slot-topic">Expanding AI's Senses: Touch, Smell, and Beyond</span>
+            </span>
+          </span>
+        </div>
+      </div>
+      <div class="slot panel-slot">
+        <div class="slot-time">16:15–16:50</div>
+        <div class="slot-body">
+          <strong>Panel discussion</strong>
+          <span class="panel-avatars">
+            <img src="assets/profile_speaker/mahi.png" alt="Mahi Shafiullah">
+            <img src="assets/profile_speaker/homanga.webp" alt="Homanga Bharadhwaj">
+            <img src="assets/profile_speaker/sha.jpg" alt="Sha Yi">
+            <img src="assets/profile_speaker/paul.jpg" alt="Paul Liang">
+            <img src="assets/profile_speaker/ismini.jpg" alt="Ismini Lourentzou">
+            <img src="assets/profile_speaker/christian.jpg" alt="Christian Theobalt">
+          </span>
+        </div>
+      </div>
+      <div class="slot">
+        <div class="slot-time">16:50–17:00</div>
+        <div class="slot-body muted">Paper award ceremony</div>
       </div>
     </div>
-  </div>
+
+    <footer class="poster-footer">
+      <span>sense-of-space.github.io</span>
+      <span><a href="index.html">Website</a> • <a href="accepted-papers.html">Accepted Papers</a></span>
+    </footer>
+  </article>
 </body>
 </html>
